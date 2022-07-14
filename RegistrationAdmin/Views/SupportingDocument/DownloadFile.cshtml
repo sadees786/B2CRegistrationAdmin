@@ -1,0 +1,25 @@
+﻿
+@model RegistrationAdmin.ViewModels.DownloadFileViewModel
+@{
+    ViewData["Title"] = "Download supporting documents";
+}
+<gds-row>
+
+    <gds-column desktop-size="TwoThirds" tablet-size="FullWidth">    
+      
+        <vc:validation-error-summary></vc:validation-error-summary>
+        <gds-heading heading-type="H2" text="Download supporting documents"></gds-heading>
+
+        <form asp-action="DownloadFile" asp-controller="SupportingDocument" method="post">
+            <gds-text-box textbox-id="ReferenceNumber" for="ReferencNumber" input-width-chars="20" />
+            <div class="govuk-inset-text">
+                For a resubmitted application you only need to enter the Application reference number. For example for REG-123456_2 you would enter REG-123456            </div>
+            <gds-button button-id="submit" button-text="Search" button-type="Submit"></gds-button>
+            <a asp-action="Index" asp-controller="Home" class="govuk-button govuk-button--secondary mright" id="cancel_button">Cancel</a>
+        </form>
+        <partial name="_HomeLink" />
+    </gds-column>
+</gds-row>
+
+
+

@@ -1,0 +1,35 @@
+﻿
+@model RegistrationAdmin.ViewModels.EmailViewModel
+
+@{
+    ViewData["Title"] = "Re-send introductory emails";
+}
+<gds-row>
+   
+    <gds-column desktop-size="TwoThirds" tablet-size="FullWidth">
+        @if (Model.ConfirmationMessage != null)
+        {
+            <div class="govuk-success-summary">
+                <h4 class="confirmbox">@Model.ConfirmationMessage</h4>
+            </div>
+        }     
+        @if (Model.ErrorMessage != null)
+        {
+            <div tabindex="-1" class="govuk-error-summary" role="alert" aria-labelledby="error-summary-title" data-module="govuk-error-summary">
+                <h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2>
+                <div class="govuk-error-summary__body">
+                    <h4 class="govuk-heading-s errorbox"> @Model.ErrorMessage</h4>
+                </div>
+            </div>
+        }
+
+        <vc:validation-error-summary></vc:validation-error-summary>
+        <gds-heading heading-type="H2" text="Re-send introductory emails"></gds-heading>
+        <form asp-action="ResendEmail" asp-controller="Admin" method="post">
+            <gds-text-box textbox-id="emailaddress" for="EmailAddress" />
+            <gds-button button-id="submit" button-text="Resend emails" button-type="Submit"></gds-button>
+            <a asp-action="Index" asp-controller="Home" class="govuk-button govuk-button--secondary mright" id="cancel_button">Cancel</a>
+        </form>
+        <partial name="_HomeLink" />
+    </gds-column>
+</gds-row>

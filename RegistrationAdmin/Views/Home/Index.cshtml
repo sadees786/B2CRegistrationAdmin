@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using RegistrationAdmin.Models.Constants
+@inject IAuthorizationService AuthorizationService
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+    <gds-row>
+        @*TODO: Authorization needs to be moved to service*@
+        <gds-container id="model-office_container">
+            <gds-column desktop-size="TwoThirds" tablet-size="FullWidth">
+                <gds-heading heading-type="H2" text="Registration Administration service"></gds-heading>
+                @if ((await AuthorizationService.AuthorizeAsync(User, RegistrationTransformationGroupPolicy.CcModelOffice)).Succeeded)
+                {
+                    <gds-heading heading-type="H3" text="CC Model Office"></gds-heading>
+                    <gds-paragraph>
+                        <a asp-action="CreateUser" asp-controller="Admin" class="govuk-link">Create user account </a>
+                    </gds-paragraph>
+                    <gds-paragraph>
+                        <a asp-action="ResendEmail" asp-controller="Admin" class="govuk-link">Resend account creation emails</a>
+                    </gds-paragraph>
+                }
+                @if ((await AuthorizationService.AuthorizeAsync(User, RegistrationTransformationGroupPolicy.NcscModelOffice)).Succeeded)
+                {
+                    <gds-heading heading-type="H3" text="NCSC Model Office"></gds-heading>
+                    <gds-paragraph>
+                        <a asp-action="DownloadFile" asp-controller="SupportingDocument" class="govuk-link">Get application and supporting documents </a>
+                    </gds-paragraph>
+                }
+                @if ((await AuthorizationService.AuthorizeAsync(User, RegistrationTransformationGroupPolicy.ProjectAdministration)).Succeeded)
+                {
+                    <gds-heading heading-type="H3" text="Registration Project Team"></gds-heading>
+                     
+                    <gds-paragraph>
+                        <a asp-action="PreSubmissionFeedback" asp-controller="SubmissionFeedback" class="govuk-link">Download pre-submission application feedback  </a>
+                    </gds-paragraph>
+                    <gds-paragraph>
+                        <a asp-action="PostSubmissionFeedback" asp-controller="SubmissionFeedback" class="govuk-link">Download post-submission feedback</a>
+                    </gds-paragraph>
+                    <gds-paragraph>
+                        <a asp-action="KpiDataset" asp-controller="SubmissionFeedback" class="govuk-link">Download KPI dataset </a>
+                    </gds-paragraph>
+                }
+
+            </gds-column>
+        </gds-container>
+    </gds-row> 
